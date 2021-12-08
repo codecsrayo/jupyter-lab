@@ -1,0 +1,21 @@
+version: "3.9"
+   
+services:
+  jupyter:
+    image: jupyter/base-notebook
+    restart: unless-stopped
+    user: root
+    ports:
+      - "10001:8888"
+    volumes:
+      - ./notebooks:/home/jovyan/
+    environment:
+      JUPYTER_ENABLE_LAB: "yes"
+      NB_USER: jovyan
+      NB_GID: 1000
+      NB_UID: 1000
+      CHOWN_HOME: 'yes'
+      CHOWN_HOME_OPTS: -R
+    command: "start-notebook.sh --NotebookApp.token='' --NotebookApp.password=''"
+volumes:
+  notebooks:
